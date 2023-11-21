@@ -21,7 +21,7 @@ export function Exegol(props) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setModelLoaded(true);
-    }, 90000);
+    }, 80000);
 
     // Limpiar el temporizador si el componente se desmonta antes de que se cargue el modelo
     return () => clearTimeout(timeoutId);

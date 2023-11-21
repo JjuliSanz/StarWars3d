@@ -27,7 +27,7 @@ const AudioPlayerButton = () => {
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
-            fill="currentColor"
+            fill="white"
             className="bi bi-pause"
             viewBox="0 0 16 16"
           >
@@ -39,7 +39,7 @@ const AudioPlayerButton = () => {
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
-            fill="currentColor"
+            fill="white"
             className="bi bi-play-fill"
             viewBox="0 0 16 16"
           >

@@ -17,7 +17,7 @@ export function JangoFett(props) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setModelLoaded(true);
-    }, 30000);
+    }, 20000);
 
     // Limpiar el temporizador si el componente se desmonta antes de que se cargue el modelo
     return () => clearTimeout(timeoutId);

@@ -264,7 +264,7 @@ body {
   position: relative;
   height: 800px;
   color: #feda4a;
-  font-family: "Pathway Gothic One", sans-serif;
+  font-family: sans-serif;
   font-size: 500%;
   font-weight: 600;
   letter-spacing: 6px;
@@ -277,7 +277,7 @@ body {
   position: relative;
   top: 99999px;
   transform-origin: 50% 100%;
-  animation: crawl 30s linear;
+  animation: crawl 40s ease-in;
 }
 
 .crawl > .title {
@@ -298,14 +298,5 @@ body {
   100% {
     top: -6000px;
     transform: rotateX(25deg) translateZ(-2500px);
-  }
-}
-@keyframes bg {
-  0% {
-    background: #15152b;
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }

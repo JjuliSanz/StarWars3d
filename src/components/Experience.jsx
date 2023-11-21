@@ -627,7 +627,7 @@ export const Experience = () => {
   // Render the 3D scene with lights, camera, text, line, asteroids, and animations
   return useMemo(
     () => (
-      <>       
+      <>
         {end && <Speed />}
 
         <directionalLight position={[-1.7, 2, -3]} intensity={0.5} />
@@ -971,11 +971,11 @@ export const Experience = () => {
         </group>
 
         {/* ASTEROIDS */}
-        {asteroids.map((asteroid, index) => (
+        {/* {asteroids.map((asteroid, index) => (
           <Float floatIntensity={1} speed={0.5} rotationIntensity={0.1}>
             <Asteroid {...asteroid} sceneOpacity={sceneOpacity} key={index} />
           </Float>
-        ))}
+        ))} */}
       </>
     ),
     []

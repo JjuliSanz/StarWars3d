@@ -12,7 +12,7 @@ export const Overlay = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setLoaded(true);
-    }, 30000); 
+    }, 40000); 
 
     return () => clearTimeout(timeoutId);
   }, []); 
