@@ -1,7 +1,7 @@
 
-# Star Wars Journey: Exploring the Galaxy Through 3D Models
+# Star Wars Galactic Timeline: Exploring the Galaxy Through 3D Models
 
-Welcome to Star Wars Journey, an interactive experience that takes you through the nine iconic Star Wars movies. This project combines the immersive narrative of the saga with cutting-edge 3D modeling technology to provide you with a unique experience.
+Welcome to Star Wars Galactic Timeline, an interactive experience that takes you through the nine iconic Star Wars movies. This project combines the immersive narrative of the saga with cutting-edge 3D modeling technology to provide you with a unique experience.
 
 ## Technology Stack & Tools
 
@@ -17,5 +17,5 @@ Welcome to Star Wars Journey, an interactive experience that takes you through t
 
 
 ### Inspired in Wawa code tutorial
-(https://github.com/wass08/r3f-wawatmos-final)
+- https://github.com/wass08/r3f-wawatmos-final
 
