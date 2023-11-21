@@ -14,18 +14,6 @@ export function Tatooine(props) {
   const { nodes, materials } = useGLTF('./models/ep1/tatooine/tatooine.glb')
   const [modelLoaded, setModelLoaded] = useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setModelLoaded(true);
-    }, 20000);
-
-    // Limpiar el temporizador si el componente se desmonta antes de que se cargue el modelo
-    return () => clearTimeout(timeoutId);
-  }, []); // El array vacío asegura que este efecto se ejecute solo una vez al montar el componente
-
-  if (!modelLoaded) {
-    return null; // O puedes devolver un indicador de carga aquí
-  }
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Object_4.geometry} material={materials.Material} rotation={[2.456, 0.972, 1.617]} />

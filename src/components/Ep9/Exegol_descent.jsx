@@ -18,18 +18,6 @@ export function Exegol(props) {
   const { actions } = useAnimations(animations, group);
   const [modelLoaded, setModelLoaded] = useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setModelLoaded(true);
-    }, 80000);
-
-    // Limpiar el temporizador si el componente se desmonta antes de que se cargue el modelo
-    return () => clearTimeout(timeoutId);
-  }, []); // El array vacío asegura que este efecto se ejecute solo una vez al montar el componente
-
-  if (!modelLoaded) {
-    return null; // O puedes devolver un indicador de carga aquí
-  }
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">

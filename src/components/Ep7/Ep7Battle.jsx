@@ -7,36 +7,43 @@ Source: https://sketchfab.com/3d-models/kylo-ren-vs-rey-star-wars-7-the-force-aw
 Title: Kylo ren vs Rey "Star Wars 7 : The force awaken"
 */
 
-import React, { useEffect, useRef, useState } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useEffect, useRef, useState } from "react";
+import { useGLTF } from "@react-three/drei";
 
 export function Ep7Battle(props) {
-  const { nodes, materials } = useGLTF('./models/ep7/ep7Battle/ep7Battle.glb')
+  const { nodes, materials } = useGLTF("./models/ep7/ep7Battle/ep7Battle.glb");
   const [modelLoaded, setModelLoaded] = useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setModelLoaded(true);
-    }, 80000);
-
-    // Limpiar el temporizador si el componente se desmonta antes de que se cargue el modelo
-    return () => clearTimeout(timeoutId);
-  }, []); // El array vacío asegura que este efecto se ejecute solo una vez al montar el componente
-
-  if (!modelLoaded) {
-    return null; // O puedes devolver un indicador de carga aquí
-  }
   return (
     <group {...props} dispose={null}>
-      <group position={[0, 23.769, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={1559.059}>
-        <mesh geometry={nodes.Plane_ren_0.geometry} material={materials.material} />
-        <mesh geometry={nodes.Plane_sword_ren_0.geometry} material={materials.sword_ren} />
-        <mesh geometry={nodes.Plane_Material_0.geometry} material={materials.Material} />
-        <mesh geometry={nodes.Plane_Material001_0.geometry} material={materials['Material.001']} />
-        <mesh geometry={nodes.Plane_Material002_0.geometry} material={materials['Material.002']} />
+      <group
+        position={[0, 23.769, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        scale={1559.059}
+      >
+        <mesh
+          geometry={nodes.Plane_ren_0.geometry}
+          material={materials.material}
+        />
+        <mesh
+          geometry={nodes.Plane_sword_ren_0.geometry}
+          material={materials.sword_ren}
+        />
+        <mesh
+          geometry={nodes.Plane_Material_0.geometry}
+          material={materials.Material}
+        />
+        <mesh
+          geometry={nodes.Plane_Material001_0.geometry}
+          material={materials["Material.001"]}
+        />
+        <mesh
+          geometry={nodes.Plane_Material002_0.geometry}
+          material={materials["Material.002"]}
+        />
       </group>
     </group>
-  )
+  );
 }
 
-useGLTF.preload('./models/ep7/ep7Battle/ep7Battle.glb')
+useGLTF.preload("./models/ep7/ep7Battle/ep7Battle.glb");

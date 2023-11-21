@@ -37,11 +37,13 @@ import { Speed } from "./Speed";
 const LINE_NB_POINTS = 1000;
 const CURVE_DISTANCE = 250;
 const CURVE_AHEAD_CAMERA = 0.008;
-const CURVE_AHEAD_AIRPLANE = 0.02;
-const AIRPLANE_MAX_ANGLE = 35;
+const CURVE_AHEAD_ship = 0.02;
+const ship_MAX_ANGLE = 35;
 const FRICTION_DISTANCE = 42;
 
 export const Experience = () => {
+  const [speed, setSpeed] = useState(false)
+
   // Memoized points for creating a Catmull-Rom curve
   const curvePoints = useMemo(
     () => [
@@ -471,10 +473,10 @@ export const Experience = () => {
       cameraGroup.current.position.clone().add(lookAt)
     );
 
-    // Airplane rotation
+    // ship rotation
 
     // Get the tangent of the curve at the lerped scroll offset
-    const tangent = curve.getTangent(lerpedScrollOffset + CURVE_AHEAD_AIRPLANE);
+    const tangent = curve.getTangent(lerpedScrollOffset + CURVE_AHEAD_ship);
 
     // Create a temporary non-lerped look-at group for orientation calculations
     const nonLerpLookAt = new Group();
@@ -487,7 +489,7 @@ export const Experience = () => {
       -nonLerpLookAt.rotation.y
     );
 
-    // Calculate rotation angles for the airplane based on the tangent
+    // Calculate rotation angles for the ship based on the tangent
     let angle = Math.atan2(-tangent.z, tangent.x);
     angle = -Math.PI / 2 + angle;
 
@@ -495,28 +497,28 @@ export const Experience = () => {
     let angleDegrees = (angle * 180) / Math.PI;
     angleDegrees *= 2.4; // stronger angle
 
-    // Limit the airplane's rotation angle within specified bounds
+    // Limit the ship's rotation angle within specified bounds
     if (angleDegrees < 0) {
-      angleDegrees = Math.max(angleDegrees, -AIRPLANE_MAX_ANGLE);
+      angleDegrees = Math.max(angleDegrees, -ship_MAX_ANGLE);
     }
     if (angleDegrees > 0) {
-      angleDegrees = Math.min(angleDegrees, AIRPLANE_MAX_ANGLE);
+      angleDegrees = Math.min(angleDegrees, ship_MAX_ANGLE);
     }
 
     // Convert the angle back to radians for quaternion rotation
     angle = (angleDegrees * Math.PI) / 180;
 
-    // Create a target quaternion based on the calculated angles for the airplane rotation
-    const targetAirplaneQuaternion = new THREE.Quaternion().setFromEuler(
+    // Create a target quaternion based on the calculated angles for the ship rotation
+    const targetshipQuaternion = new THREE.Quaternion().setFromEuler(
       new THREE.Euler(
-        airplane.current.rotation.x,
-        airplane.current.rotation.y,
+        ship.current.rotation.x,
+        ship.current.rotation.y,
         angle
       )
     );
 
-    // Use slerp to smoothly interpolate the airplane's quaternion towards the target quaternion
-    airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
+    // Use slerp to smoothly interpolate the ship's quaternion towards the target quaternion
+    ship.current.quaternion.slerp(targetshipQuaternion, delta * 2);
 
     // Check if the camera is close to the end of the curve, trigger end state and play exit animation
     if (
@@ -526,10 +528,17 @@ export const Experience = () => {
       setEnd(true);
       planeOutTl.current.play();
     }
+
+    if (
+      cameraGroup.current.position.z <
+      curvePoints[curvePoints.length - 1].z + 200
+    ) {
+      setSpeed(true);      
+    }
   });
 
-  // Create a ref to hold the airplane model
-  const airplane = useRef();
+  // Create a ref to hold the ship model
+  const ship = useRef();
 
   // Create refs for timelines and background color transitions
   const tl = useRef();
@@ -539,7 +548,7 @@ export const Experience = () => {
   });
 
   // TIMELINE
-  // Create refs for airplane animations when entering and exiting the scene
+  // Create refs for ship animations when entering and exiting the scene
   const planeInTl = useRef();
   const planeOutTl = useRef();
 
@@ -578,24 +587,24 @@ export const Experience = () => {
     // Pause the main timeline initially
     tl.current.pause();
 
-    // Initialize airplane entrance animation timeline
+    // Initialize ship entrance animation timeline
     planeInTl.current = gsap.timeline();
     planeInTl.current.pause();
 
-    // Animate the airplane's position when entering the scene
-    planeInTl.current.from(airplane.current.position, {
+    // Animate the ship's position when entering the scene
+    planeInTl.current.from(ship.current.position, {
       duration: 3,
       z: 5,
       y: -2,
     });
 
-    // Initialize airplane exit animation timeline
+    // Initialize ship exit animation timeline
     planeOutTl.current = gsap.timeline();
     planeOutTl.current.pause();
 
-    // Animate the airplane's position and camera rail position when exiting the scene
+    // Animate the ship's position and camera rail position when exiting the scene
     planeOutTl.current.to(
-      airplane.current.position,
+      ship.current.position,
       {
         duration: 10,
         z: -250,
@@ -611,13 +620,13 @@ export const Experience = () => {
       },
       0
     );
-    planeOutTl.current.to(airplane.current.position, {
+    planeOutTl.current.to(ship.current.position, {
       duration: 1,
       z: -1000,
     });
   }, []);
 
-  // useEffect to trigger airplane entrance animation when 'play' state changes
+  // useEffect to trigger ship entrance animation when 'play' state changes
   useEffect(() => {
     if (play) {
       planeInTl.current.play();
@@ -628,7 +637,7 @@ export const Experience = () => {
   return useMemo(
     () => (
       <>
-        {end && <Speed />}
+        {speed && <Speed />}
 
         <directionalLight position={[-1.7, 2, -3]} intensity={0.5} />
         <group ref={cameraGroup}>
@@ -641,7 +650,7 @@ export const Experience = () => {
               makeDefault
             />
           </group>
-          <group ref={airplane}>
+          <group ref={ship}>
             <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
               <JediFighter
                 scale={0.003}
@@ -883,7 +892,7 @@ export const Experience = () => {
                     new Vector3(
                       curvePoints[7].x - 10.5,
                       curvePoints[7].y - 12,
-                      curvePoints[7].z - 12
+                      curvePoints[7].z - 10
                     )
                   }
                   rotation={[0, -0.6, -0.1]}
@@ -971,11 +980,11 @@ export const Experience = () => {
         </group>
 
         {/* ASTEROIDS */}
-        {/* {asteroids.map((asteroid, index) => (
+        {asteroids.map((asteroid, index) => (
           <Float floatIntensity={1} speed={0.5} rotationIntensity={0.1}>
             <Asteroid {...asteroid} sceneOpacity={sceneOpacity} key={index} />
           </Float>
-        ))} */}
+        ))}
       </>
     ),
     []

@@ -14,18 +14,6 @@ export function Coruscant(props) {
   const { nodes, materials } = useGLTF('./models/ep3/coruscant/coruscant.glb')
   const [modelLoaded, setModelLoaded] = useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setModelLoaded(true);
-    }, 20000);
-
-    // Limpiar el temporizador si el componente se desmonta antes de que se cargue el modelo
-    return () => clearTimeout(timeoutId);
-  }, []); // El array vacío asegura que este efecto se ejecute solo una vez al montar el componente
-
-  if (!modelLoaded) {
-    return null; // O puedes devolver un indicador de carga aquí
-  }
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.planet_planet_0.geometry} material={materials.planet} rotation={[-Math.PI / 2, 0, 0]} scale={100} />

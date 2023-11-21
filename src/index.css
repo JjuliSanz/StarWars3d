@@ -57,6 +57,17 @@ body {
   opacity: 0.5;
 }
 
+/* LOADING */
+.loading {
+  font-family: "SF-Distant-Galaxy-Italic", serif;
+  color: #eba434;
+  font-size: 1rem;
+  background: #1e1e5e;
+  background: linear-gradient(to bottom, #1e1e5e 0%, #eba434 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -78,6 +89,7 @@ body {
   align-items: center;
   flex-direction: column;
   height: 100%;
+  animation: bg 1s ease-in;
 }
 
 .logo {
@@ -236,6 +248,15 @@ body {
   }
 }
 
+@keyframes bg {
+  0% {
+    background-color: #15152b;
+  }
+  100% {
+    background-color: none;
+  }
+}
+
 /* LOADER */
 .loaderContainer{
   position: absolute;
@@ -247,7 +268,6 @@ body {
   background-size: contain;
   background-position: center;
   overflow: hidden;
-
 }
 
 .fade {

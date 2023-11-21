@@ -7,36 +7,44 @@ Source: https://sketchfab.com/3d-models/star-wars-red-reaper-harrower-class-a5ca
 Title: Star Wars - Red Reaper | Harrower-class
 */
 
-import React, { useEffect, useRef, useState } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useEffect, useRef, useState } from "react";
+import { useGLTF } from "@react-three/drei";
 
 export function Dreadnought(props) {
-  const { nodes, materials } = useGLTF('./models/ep8/dreadnought/dreadnought.glb')
+  const { nodes, materials } = useGLTF(
+    "./models/ep8/dreadnought/dreadnought.glb"
+  );
   const [modelLoaded, setModelLoaded] = useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setModelLoaded(true);
-    }, 80000);
-
-    // Limpiar el temporizador si el componente se desmonta antes de que se cargue el modelo
-    return () => clearTimeout(timeoutId);
-  }, []); // El array vacío asegura que este efecto se ejecute solo una vez al montar el componente
-
-  if (!modelLoaded) {
-    return null; // O puedes devolver un indicador de carga aquí
-  }
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.Harrower_0.geometry} material={materials.Details03} />
+      <mesh
+        geometry={nodes.Harrower_0.geometry}
+        material={materials.Details03}
+      />
       <mesh geometry={nodes.Harrower_1.geometry} material={materials.Trims01} />
-      <mesh geometry={nodes.Harrower_2.geometry} material={materials.Panels02} />
-      <mesh geometry={nodes.Harrower_3.geometry} material={materials.Panels01} />
-      <mesh geometry={nodes.Harrower_4.geometry} material={materials.Details02} />
-      <mesh geometry={nodes.Harrower_5.geometry} material={materials.Details01} />
-      <mesh geometry={nodes.Harrower_6.geometry} material={materials.Forcefield} />
+      <mesh
+        geometry={nodes.Harrower_2.geometry}
+        material={materials.Panels02}
+      />
+      <mesh
+        geometry={nodes.Harrower_3.geometry}
+        material={materials.Panels01}
+      />
+      <mesh
+        geometry={nodes.Harrower_4.geometry}
+        material={materials.Details02}
+      />
+      <mesh
+        geometry={nodes.Harrower_5.geometry}
+        material={materials.Details01}
+      />
+      <mesh
+        geometry={nodes.Harrower_6.geometry}
+        material={materials.Forcefield}
+      />
     </group>
-  )
+  );
 }
 
-useGLTF.preload('./models/ep8/dreadnought/dreadnought.glb')
+useGLTF.preload("./models/ep8/dreadnought/dreadnought.glb");

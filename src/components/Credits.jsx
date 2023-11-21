@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loader = () => {
+const Credits = () => {
   return (
     <>
       <div className="loaderContainer">
@@ -42,4 +42,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default Credits;
